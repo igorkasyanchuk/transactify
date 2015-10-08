@@ -10,3 +10,5 @@ rvm:
 before_install: gem install bundler
 
 cache: bundler
+
+script: bundle exec rspec spec
