@@ -7,6 +7,8 @@ rvm:
   - "2.2"
   - ruby-head
 
-before_install: gem install rspec
+before_install: "gem install bundler && gem install rspec"
+
+cache: bundler
 
 script: rspec
