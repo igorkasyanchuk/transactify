@@ -11,4 +11,4 @@ before_install: gem install bundler
 
 cache: bundler
 
-script: bundle exec rspec spec
+script: rspec
