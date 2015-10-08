@@ -3,10 +3,9 @@ source 'https://rubygems.org'
 # Specify your gem's dependencies in transactify.gemspec
 gemspec
 
+gem 'pry'
 gem 'rspec'
 gem 'rspec-core'
-
-group :test do
-  gem 'sequel'
-  gem 'activerecord'
-end
+gem 'sqlite3'
+gem 'sequel'
+gem 'activerecord'
