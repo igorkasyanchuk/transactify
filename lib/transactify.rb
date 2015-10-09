@@ -73,6 +73,7 @@ if Object.const_defined?('ActiveRecord')
   ActiveRecord::Base.send(:include, Transactify)
 end
 
-if Object.const_defined?('Sequel')
-  Sequel.send(:include, Transactify)
-end
+# TODO Future
+# if Object.const_defined?('Sequel')
+#   Sequel.send(:include, Transactify)
+# end

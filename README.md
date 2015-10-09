@@ -3,9 +3,7 @@
 [![Code Climate](https://codeclimate.com/github/igorkasyanchuk/transactify/badges/gpa.svg)](https://codeclimate.com/github/igorkasyanchuk/transactify)
 [![Build Status](https://travis-ci.org/igorkasyanchuk/transactify.svg?branch=master)](https://travis-ci.org/igorkasyanchuk/transactify)
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/transactify`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Transactify gem can run your methods in database transaction. Previously you had to wrap you code in `ActiveRecord::Base.transaction do .. end` but now it can be done in much more simpler way.
 
 ## Installation
 
@@ -25,7 +23,64 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Let's say you have model `Question` with method `reject!`.
+
+
+```ruby
+  def reject!(comment_text = nil)
+    assignment_log = question_logs.where(action_type: ASSIGNED_STATUS).last
+    owner.rejected_questions << self
+    owner.update_attribute(average_assigned_questions_count: question_count/total_questions)
+    log = question_logs.create(assignee: assignment_log.assigner, assigner: assignment_log.assignee, action_type: REJECTED_STATUS)
+    QuestionMailer.update(self, log).deliver_later
+  end
+```
+
+Now imagine that `total_questions` returns 0. And you will have an exception (dividing by zero), but one operation (`owner.rejected_questions << self`) will be performed to the DB. This is wrong, and normally you can avoid this by adding Transactions:
+
+
+```ruby
+  def reject!(comment_text = nil)
+    ActiveRecord::Base.transaction do
+      assignment_log = question_logs.where(action_type: ASSIGNED_STATUS).last
+      owner.rejected_questions << self
+      owner.update_attribute(average_assigned_questions_count: question_count/total_questions)
+      log = question_logs.create(assignee: assignment_log.assigner, assigner: assignment_log.assignee, action_type: REJECTED_STATUS)
+      QuestionMailer.update(self, log).deliver_later
+    end
+  end
+```
+
+But what if you have many-many such methods? This is where **transactify** gem can help. You can speficy which methods you want to run in transaction. So final code will looks like:
+
+```ruby
+  def reject!(comment_text = nil)
+    assignment_log = question_logs.where(action_type: ASSIGNED_STATUS).last
+    owner.rejected_questions << self
+    owner.update_attribute(average_assigned_questions_count: question_count/total_questions)
+    log = question_logs.create(assignee: assignment_log.assigner, assigner: assignment_log.assignee, action_type: REJECTED_STATUS)
+    QuestionMailer.update(self, log).deliver_later
+  end
+
+  transactify :reject!  # With this line you can specify which methods you want to make safe for DB
+```
+
+Main benefit of this gem is that you don't need to edit all your methods and add transaction blocks. So without any existing code modification you can add support for transaction for whole methods.
+
+
+Gem allows to **transactify** instance and class methods.
+
+### Functionality
+
+`include Transactify` - put in your classes, models to add support for transactions
+`transactify :method_name` - transactify your insatance method.
+`ctransactify :method_name` - transactify your class method.
+
+## Plans
+
+* add support for Sequel gem
+* allow set columns in any location of file (for example at the top of your model)
+* add more specs
 
 ## Development
 
