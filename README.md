@@ -3,8 +3,7 @@
 [![Code Climate](https://codeclimate.com/github/igorkasyanchuk/transactify/badges/gpa.svg)](https://codeclimate.com/github/igorkasyanchuk/transactify)
 [![Build Status](https://travis-ci.org/igorkasyanchuk/transactify.svg?branch=master)](https://travis-ci.org/igorkasyanchuk/transactify)
 
-
-[![Sample](https://travis-ci.org/igorkasyanchuk/transactify.svg?branch=master)](https://travis-ci.org/igorkasyanchuk/transactify)
+[![Sample](https://raw.githubusercontent.com/igorkasyanchuk/transactify/master/transactify.png)](https://github.com/igorkasyanchuk/transactify)
 
 Transactify gem can run your methods in database transaction. Previously you had to wrap you code in `ActiveRecord::Base.transaction do .. end` but now it can be done in much more simpler way.
 
