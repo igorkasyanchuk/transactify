@@ -33,4 +33,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rspec", "> 0"
   spec.add_development_dependency "sequel", "> 0"
   spec.add_development_dependency "pry", "> 0"
+  spec.add_development_dependency "simplecov", "> 0"
 end

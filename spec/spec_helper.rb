@@ -1,10 +1,14 @@
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
-require 'transactify'
 
 require 'rubygems'
 require 'active_record'
 require 'sequel'
 require 'pry'
+require 'simplecov'
+
+SimpleCov.start
+
+require 'transactify'
 
 ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :database => ":memory:")
 
