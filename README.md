@@ -3,6 +3,9 @@
 [![Code Climate](https://codeclimate.com/github/igorkasyanchuk/transactify/badges/gpa.svg)](https://codeclimate.com/github/igorkasyanchuk/transactify)
 [![Build Status](https://travis-ci.org/igorkasyanchuk/transactify.svg?branch=master)](https://travis-ci.org/igorkasyanchuk/transactify)
 
+
+[![Sample](https://travis-ci.org/igorkasyanchuk/transactify.svg?branch=master)](https://travis-ci.org/igorkasyanchuk/transactify)
+
 Transactify gem can run your methods in database transaction. Previously you had to wrap you code in `ActiveRecord::Base.transaction do .. end` but now it can be done in much more simpler way.
 
 ## Installation
@@ -70,17 +73,51 @@ Main benefit of this gem is that you don't need to edit all your methods and add
 
 Gem allows to **transactify** instance and class methods.
 
+**IMPORTANT - you can call `transactify` method only after actual methods. If you know how to fix it - please let me know. Ideally I want to declare methods which I want to transactify and the beginning of model.**
+
 ### Functionality
 
 `include Transactify` - put in your classes, models to add support for transactions
 `transactify :method_name` - transactify your insatance method.
 `ctransactify :method_name` - transactify your class method.
 
+## Samples of Usage
+
+```ruby
+class Question < ActiveRecord::Base
+
+  def reject!(comment_text = nil)
+    assignment_log = question_logs.where(action_type: ASSIGNED_STATUS).last
+    owner.rejected_questions << self
+    owner.update_attribute(average_assigned_questions_count: question_count/total_questions)
+    log = question_logs.create(assignee: assignment_log.assigner, assigner: assignment_log.assignee, action_type: REJECTED_STATUS)
+    QuestionMailer.update(self, log).deliver_later
+  end
+
+  def save_question(user, answer, comment_content = nil)
+    update_attributes(owner_id: user.id)
+    question_logs.create(assignee: user, assigner: user, action_type: SAVE_STATUS, answers: answer)
+    save_comment(user, comment_content)
+  end
+
+  def self.generate_report
+    report = Report.create_new_report
+    report.create_schema
+    report.populate_users
+    report.populate_questions
+    report
+  end
+
+  transactify :reject!, :save_question
+  ctransactify :generate_report
+end
+```
+
 ## Plans
 
-* add support for Sequel gem
-* allow set columns in any location of file (for example at the top of your model)
-* add more specs
+* Add support for Sequel gem
+* Allow set columns in any location of file (for example at the top of your model)
+* Add more specs
 
 ## Development
 
