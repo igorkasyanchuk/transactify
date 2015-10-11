@@ -6,7 +6,7 @@ module Transactify
   def self.included(base_klass)
     base_klass.extend(ClassMethods)
     interceptor = const_set("#{base_klass.name.demodulize}Interceptor", Module.new)
-    base_klass.prepend(interceptor)
+    base_klass.send(:prepend, interceptor)
   end
 
   module ClassMethods
