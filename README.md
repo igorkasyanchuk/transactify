@@ -85,6 +85,10 @@ Gem allows to **transactify** instance and class methods.
 
 ```ruby
 class Question < ActiveRecord::Base
+  include Transactify
+
+  transactify :reject!, :save_question
+  ctransactify :generate_report
 
   def reject!(comment_text = nil)
     assignment_log = question_logs.where(action_type: ASSIGNED_STATUS).last
@@ -108,15 +112,12 @@ class Question < ActiveRecord::Base
     report
   end
 
-  transactify :reject!, :save_question
-  ctransactify :generate_report
 end
 ```
 
 ## Plans
 
 * Add support for Sequel gem
-* Allow set columns in any location of file (for example at the top of your model)
 * Add more specs
 
 ## Development
