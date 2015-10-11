@@ -80,7 +80,9 @@ Gem allows to **transactify** instance and class methods.
 ### Functionality
 
 `include Transactify` - put in your classes, models to add support for transactions
+
 `transactify :method_name` - transactify your insatance method.
+
 `ctransactify :method_name` - transactify your class method.
 
 ## Samples of Usage
