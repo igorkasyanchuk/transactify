@@ -7,6 +7,8 @@
 
 Transactify gem can run your methods in database transaction. Previously you had to wrap you code in `ActiveRecord::Base.transaction do .. end` but now it can be done in much more simpler way.
 
+Sample or usage: https://github.com/igorkasyanchuk/transactify/blob/master/spec/app.rb#L20
+
 ## Installation
 
 Add this line to your application's Gemfile:
