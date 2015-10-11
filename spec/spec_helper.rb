@@ -10,9 +10,10 @@ SimpleCov.start
 
 require 'transactify'
 
-require 'app.rb'
+require_relative 'app.rb'
 
 def clean_db
   User.delete_all
   Comment.delete_all
+  Db::Account.delete_all
 end

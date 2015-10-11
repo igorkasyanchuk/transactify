@@ -23,6 +23,9 @@ Or install it yourself as:
 
     $ gem install transactify
 
+
+**Note: works only for Ruby 2+**
+
 ## Usage
 
 Let's say you have model `Question` with method `reject!`.
@@ -71,8 +74,6 @@ Main benefit of this gem is that you don't need to edit all your methods and add
 
 
 Gem allows to **transactify** instance and class methods.
-
-**IMPORTANT - you can call `transactify` method only after actual methods. If you know how to fix it - please let me know. Ideally I want to declare methods which I want to transactify and the beginning of model.**
 
 ### Functionality
 

@@ -7,7 +7,7 @@ describe Transactify do
   end
 
   it 'has a version number' do
-    expect(Transactify::VERSION).not_to be nil
+    expect(Transactify::VERSION).not_to be_nil
   end
 
   it 'specs configured' do
@@ -58,9 +58,38 @@ describe Transactify do
     verify_zeros
   end
 
+  it 'works for instance modules(OK)' do
+    verify_zeros
+    account = Db::Account.new
+    account.sample_intance_method
+    expect(Db::Account.count).to eq(1)
+  end
+
+  it 'works for instance modules(BAD)' do
+    verify_zeros
+    account = Db::Account.new
+    expect{account.sample_intance_method_nested}.to raise_error(ZeroDivisionError)
+    expect(Db::Account.count).to eq(0)
+  end
+
+  it 'works for class modules(OK)' do
+    verify_zeros
+    Db::Account.sample_class_method
+    expect(Db::Account.count).to eq(1)
+  end
+
+  it 'works for class modules(BAD)' do
+    verify_zeros
+    expect{Db::Account.sample_class_method_nested}.to raise_error(ZeroDivisionError)
+    expect(Db::Account.count).to eq(0)
+  end
+
+  private
+
   def verify_zeros
     expect(User.count).to eq(0)
     expect(Comment.count).to eq(0)
+    expect(Db::Account.count).to eq(0)
   end
 
 end
