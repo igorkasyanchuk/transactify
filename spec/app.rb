@@ -98,6 +98,8 @@ module Db
 
     transactify :sample_intance_method_nested
 
+    ctransactify :return_value
+
     def self.return_value
       42
     end
