@@ -98,6 +98,10 @@ module Db
 
     transactify :sample_intance_method_nested
 
+    def self.return_value
+      42
+    end
+
     def self.sample_class_method
       Account.create(:name => 'A1')
     end
