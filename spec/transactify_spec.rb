@@ -84,6 +84,10 @@ describe Transactify do
     expect(Db::Account.count).to eq(0)
   end
 
+  it 'returns value' do
+    expect(Db::Account.return_value).to eq(42)
+  end
+
   private
 
   def verify_zeros
