@@ -2,6 +2,7 @@
 
 [![Code Climate](https://codeclimate.com/github/igorkasyanchuk/transactify/badges/gpa.svg)](https://codeclimate.com/github/igorkasyanchuk/transactify)
 [![Build Status](https://travis-ci.org/igorkasyanchuk/transactify.svg?branch=master)](https://travis-ci.org/igorkasyanchuk/transactify)
+[![Gem Version](https://badge.fury.io/rb/transactify.svg)](https://badge.fury.io/rb/transactify)
 
 [![Sample](https://raw.githubusercontent.com/igorkasyanchuk/transactify/master/transactify.png)](https://github.com/igorkasyanchuk/transactify)
 
