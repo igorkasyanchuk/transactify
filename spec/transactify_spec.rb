@@ -84,8 +84,14 @@ describe Transactify do
     expect(Db::Account.count).to eq(0)
   end
 
-  it 'returns value' do
+  it 'returns value 1' do
     expect(Db::Account.return_value).to eq(42)
+  end
+
+  it 'returns value 2' do
+    verify_zeros
+    expect(Db::Account.new.sample_intance_method_value.class.to_s).to eq('Db::Account')
+    expect(Db::Account.count).to eq(1)
   end
 
   private

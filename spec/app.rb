@@ -123,5 +123,9 @@ module Db
       Account.create(:name => 'A4')
       1/0
     end
+
+    def sample_intance_method_value
+      sample_intance_method
+    end
   end
 end
