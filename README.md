@@ -5,7 +5,7 @@
 [![Gem Version](https://badge.fury.io/rb/transactify.svg)](https://badge.fury.io/rb/transactify)
 [![RailsJazz](https://github.com/igorkasyanchuk/rails_time_travel/blob/main/docs/my_other.svg?raw=true)](https://www.railsjazz.com)
 [![https://www.patreon.com/igorkasyanchuk](https://github.com/igorkasyanchuk/rails_time_travel/blob/main/docs/patron.svg?raw=true)](https://www.patreon.com/igorkasyanchuk)
-
+[![Listed on OpenSource-Heroes.com](https://opensource-heroes.com/badge-v1.svg)](https://opensource-heroes.com/r/igorkasyanchuk/transactify)
 
 [![Sample](https://raw.githubusercontent.com/igorkasyanchuk/transactify/master/transactify.png)](https://github.com/igorkasyanchuk/transactify)
 
